@@ -1,0 +1,106 @@
+version: '2'
+services:
+  api:
+    image: 'pushkin/api:latest'
+    expose:
+      - '3000'
+    ports:
+      - '3000:3000'
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    volumes:
+      - './api:/usr/src/app'
+    command: bash start.debug.sh
+    depends_on:
+      - message-queue
+    environment:
+      - NODE_ENV=production
+      - 'AMPQ_ADDRESS=amqp://message-queue:5672'
+    links:
+      - message-queue
+  db:
+    image: 'postgres:latest'
+    environment:
+      - POSTGRES_DB=dev
+      - POSTGRES_USER=postgres
+    expose:
+      - '5432'
+    ports:
+      - '5432:5432'
+  db-worker:
+    image: 'pushkin/db-worker:latest'
+    build:
+      context: ./db-worker
+      dockerfile: Dockerfile
+    volumes:
+      - './db-worker:/usr/src/app'
+    command: bash start.debug.sh
+    depends_on:
+      - message-queue
+    environment:
+      - 'AMPQ_ADDRESS=amqp://message-queue:5672'
+      - 'DATABASE_URL=postgres://postgres@db:5432/dev'
+      - >-
+        TRANSACTION_DATABASE_URL=postgres://postgres@transactiondb:5432/transactions-dev
+    links:
+      - message-queue
+      - db
+      - transactiondb
+  message-queue:
+    image: 'rabbitmq:management'
+    expose:
+      - '5672'
+    ports:
+      - '8080:15672'
+  server:
+    image: 'pushkin/server:latest'
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - '80:80'
+    links:
+      - api
+  transactiondb:
+    image: 'pushkin/transactiondb:latest'
+    build:
+      context: ./
+      dockerfile: Dockerfile.transactiondb
+    environment:
+      - POSTGRES_DB=transactions-dev
+      - POSTGRES_USER=postgres
+    expose:
+      - '5432'
+    ports:
+      - '5433:5432'
+  listener-quiz:
+    image: 'pushkin/listener-quiz:latest'
+    build:
+      context: ./workers/listener-quiz
+      dockerfile: Dockerfile
+    volumes:
+      - './workers/listener-quiz:/usr/src/app'
+    command: bash start.debug.sh
+    depends_on:
+      - message-queue
+    environment:
+      - 'AMPQ_ADDRESS=amqp://message-queue:5672'
+      - QUEUE=listener-quiz
+    links:
+      - message-queue
+  short-quiz:
+    image: 'pushkin/short-quiz:latest'
+    build:
+      context: ./workers/short-quiz
+      dockerfile: Dockerfile
+    volumes:
+      - './workers/short-quiz:/usr/src/app'
+    command: bash start.debug.sh
+    depends_on:
+      - message-queue
+    environment:
+      - 'AMPQ_ADDRESS=amqp://message-queue:5672'
+      - QUEUE=short-quiz
+    links:
+      - message-queue
