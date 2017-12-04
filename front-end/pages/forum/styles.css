@@ -1,0 +1,17 @@
+.forum-wrapper {
+  display: flex;
+  min-height: 350px;
+}
+.forum-wrapper .trending-questions {
+  flex: 0 0 250px;
+}
+.forum-wrapper .content {
+  flex: 1;
+}
+.forum-wrapper .create-button {
+  background-color: #ff8969;
+  color: white;
+  outline: none;
+  font-size: 18px;
+  float: right;
+}
