@@ -54,7 +54,8 @@ class ShortQuiz extends React.Component {
  
     let arr = [];
     let questions = {};
-
+    let count_correct_trials=0;
+    let correct_percent=0;
 
     for (let i in stims) {
      
@@ -67,7 +68,7 @@ class ShortQuiz extends React.Component {
         correct: [correct[i]],
         force_correct: false,
         on_finish: function(data){
-        count_correct_trials=count_correct_trials + data.correct_score;
+        var count_correct_trials=count_correct_trials + data.correct_score;
         correct_percent = (count_correct_trials/32)*100; 
                  }    
       };
@@ -80,6 +81,7 @@ class ShortQuiz extends React.Component {
     /* access to class in inline functions */
     const _this = this;
 
+var count_correct_trials = 0;
     /* jspsych timeline */
     
     const intro = {
@@ -155,7 +157,7 @@ const comments = {
           columns: [50] 
         };
 
-const count_correct_trials = 0;
+
  
 
 
