@@ -54,8 +54,8 @@ class ShortQuiz extends React.Component {
  
     let arr = [];
     let questions = {};
-    let count_correct_trials=0;
-    let correct_percent=0;
+    //let count_correct_trials=0;
+    //let correct_percent=0;
 
     for (let i in stims) {
      
@@ -68,8 +68,8 @@ class ShortQuiz extends React.Component {
         correct: [correct[i]],
         force_correct: false,
         on_finish: function(data){
-        var count_correct_trials=count_correct_trials + data.correct_score;
-        correct_percent = (count_correct_trials/32)*100; 
+        //count_correct_trials=count_correct_trials + data.correct_score;
+        //correct_percent = (count_correct_trials/32)*100; 
                  }    
       };
       arr.push(questions);
@@ -81,13 +81,12 @@ class ShortQuiz extends React.Component {
     /* access to class in inline functions */
     const _this = this;
 
-var count_correct_trials = 0;
+
     /* jspsych timeline */
     
     const intro = {
       type: "text",
       text: `
-          <p align="center"> <strong>The Short Quiz</strong> </p>
           <p> Are you interested in how your experience affects your language? </p>
           <p> Please answer the following questions about yourself. </p>
           <p align="center"> Press any key to continue. </p>
@@ -196,10 +195,8 @@ const thank_you = {
       })
       .then(() => {
         timeline.push(intro);
-        console.log(intro)
         timeline.push(demographics);
         timeline.push(beginning_the_quiz);
-        console.log(timeline)
       })
       .then(() => {
         const actualTrials = this.getTrials(stims,choices,correct);
@@ -207,7 +204,7 @@ const thank_you = {
         for (let i in actualTrials) {
           timeline.push(actualTrials[i]);
         }
-        console.log(timeline)
+        
       })
       .then(() => {
         timeline.push(comments);
@@ -220,7 +217,8 @@ const thank_you = {
           timeline: timeline,
           on_data_update: function(data) {
             dataArray.push(data);
-            console.log(data);
+
+            console.log(dataArray);
 
             // headphone checks
             /*
