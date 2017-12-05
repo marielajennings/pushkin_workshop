@@ -177,6 +177,7 @@ const thank_you = {
 
     const timeline = [];
     const dataArray = [];
+    let count_correct_trials=0;
     let stims;
     let choices;
     let correct;
@@ -200,7 +201,6 @@ const thank_you = {
       })
       .then(() => {
         const actualTrials = this.getTrials(stims,choices,correct);
-        console.log(actualTrials)
         for (let i in actualTrials) {
           timeline.push(actualTrials[i]);
         }
@@ -217,8 +217,10 @@ const thank_you = {
           timeline: timeline,
           on_data_update: function(data) {
             dataArray.push(data);
-
-            console.log(dataArray);
+            if (data.correct_score==1){
+            count_correct_trials=count_correct_trials+data.correct_score;
+            
+          }
 
             // headphone checks
             /*
