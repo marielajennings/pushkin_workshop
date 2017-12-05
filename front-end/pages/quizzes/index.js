@@ -63,7 +63,7 @@ class QuizPage extends React.Component {
                     <Link className={s.title} to="/quizzes/short-quiz">
                       The Short Quiz
                     </Link>
-                    <br /> blah blah
+                    <br /> <br />This is essentially the Vocab Quiz, but without all the demographics.
                   </p>
 
                  { /* <p>

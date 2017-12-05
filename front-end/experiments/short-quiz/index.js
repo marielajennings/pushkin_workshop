@@ -34,7 +34,7 @@ class ShortQuiz extends React.Component {
   //Fixed onResize (doesn't break the quiz anymore)
   onResize() {
     const margin =
-      (document.documentElement.clientHeight -
+     /* (document.documentElement.clientHeight -
         document.getElementById('header').scrollHeight -
         document.getElementById('footer').scrollHeight -
         15 -
@@ -42,9 +42,9 @@ class ShortQuiz extends React.Component {
       2;
     if (margin > 0) {
       document.getElementById('jsPsychTarget').style.marginTop = `${margin}px`;
-    } else {
-      document.getElementById('jsPsychTarget').style.marginTop = '0px';
-    }
+    } else { */
+      document.getElementById('jsPsychTarget').style.marginTop = '50px';
+    //}
   }
 
 
