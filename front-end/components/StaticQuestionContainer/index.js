@@ -5,6 +5,13 @@ require('script-loader!../../experiments/listener-quiz/jspsych-call-function.js'
 require('script-loader!../../experiments/listener-quiz/jspsych-survey-likert.js');
 require('script-loader!../../experiments/listener-quiz/jspsych-survey-multi-choice.js');
 
+require('script-loader!../../experiments/short-quiz/jspsych-text.js');
+require('script-loader!../../experiments/short-quiz/jspsych-dropdown.js');
+require('script-loader!../../experiments/short-quiz/jspsych-conditional-run.js');
+require('script-loader!../../experiments/short-quiz/jspsych-survey-text.js');
+require('script-loader!../../experiments/short-quiz/jspsych-survey-multi-choice.js');
+require('script-loader!../../experiments/short-quiz/jspsych-input-total-score-plugin.js');
+
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import s from './styles.css';

@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import ListenerQuiz from '../../experiments/listener-quiz';
+import ShortQuiz from '../../experiments/short-quiz';
 import QuizForum from '../QuizForum/index';
 import Modal from '../PopupModal/model';
 import s from './styles.css';
@@ -79,7 +80,7 @@ class QuizWrapper extends React.Component {
     if (isAuthenticated()) {
       this.props.dispatch(getUserInfo());
     } else {
-      this.props.dispatch(generateAnonymousUser());
+      this.props.dispatch(                                                     );
     }
   };
   //get a user for the listenerquiz

@@ -11,11 +11,11 @@ require('script-loader!./jspsych-input-total-score-plugin.js');
 import React, { PropTypes } from 'react';
 import ReactResizeDetector from 'react-resize-detector';
 import { Link, browserHistory } from 'react-router';
-import axiosListenerQuiz from './axiosShortQuiz';
+import axiosShortQuiz from './axiosShortQuiz';
 import baseUrl from '../../core/baseUrl';
 import s from './short-quiz.css';
 
-class shortQuiz extends React.Component {
+class ShortQuiz extends React.Component {
   constructor(props) {
     super();
     this.state = { loading: true };
@@ -63,7 +63,7 @@ class shortQuiz extends React.Component {
         required: [true],
         preamble: ['Click on the word that comes closest in meaning to the word in all CAPS:'],
         questions: [stims[i]],
-        options: [options[i]],
+        options: [choices[i]],
         correct: [correct[i]],
         force_correct: false,
         on_finish: function(data){
@@ -182,25 +182,30 @@ const thank_you = {
     let user;
 
     axiosShortQuiz
-      .post('/getAllStimuli', { user: { id: this.props.user.id } })
+      .post('/getAllStimuli', /*{ user: { id: this.props.user.id } } */)
       .then(function(res) {
+
         _this.hideLoading();
         stims = res.data.stimuli;
         choices=res.data.choices;
         correct=res.data.correct;
-        user = res.data.user;
+        console.log(stims)
+        //user = res.data.user;
       })
       .then(() => {
         timeline.push(intro);
+        console.log(intro)
         timeline.push(demographics);
         timeline.push(beginning_the_quiz);
+        console.log(timeline)
       })
       .then(() => {
         const actualTrials = this.getTrials(stims,choices,correct);
-
+        console.log(actualTrials)
         for (let i in actualTrials) {
           timeline.push(actualTrials[i]);
         }
+        console.log(timeline)
       })
       .then(() => {
         timeline.push(comments);
@@ -214,6 +219,7 @@ const thank_you = {
           on_data_update: function(data) {
             dataArray.push(data);
             console.log(data);
+
             // headphone checks
             /*
             if (
@@ -334,5 +340,5 @@ const thank_you = {
   }
 }
 
-export default shortQuiz;
+export default ShortQuiz;
 /* eslint-disable max-len */

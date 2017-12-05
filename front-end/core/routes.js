@@ -10,6 +10,7 @@ import Projects from '../pages/projects/index';
 import Quizzes from '../pages/quizzes/index';
 import Archive from '../pages/archive/index';
 import ListenerQuiz from '../experiments/listener-quiz/index';
+import ShortQuiz from '../experiments/short-quiz/index';
 import QuizWrapper from '../components/QuizWrapper/index';
 import Updates from '../pages/updates/index';
 import Container from '../pages/containers/container';
@@ -67,6 +68,11 @@ export const routes = (
     <Route
       path="/quizzes/listener-quiz"
       component={props => <QuizWrapper config={CONFIG} {...props} />}
+      onEnter={ensureDesktop}
+    />
+    <Route
+      path="/quizzes/short-quiz"
+      component={ShortQuiz}
       onEnter={ensureDesktop}
     />
     {CONFIG.auth && (

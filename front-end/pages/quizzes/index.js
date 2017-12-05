@@ -57,17 +57,16 @@ class QuizPage extends React.Component {
                     </a>
                     <br />How many words do you know?{' '}
                     <strong>See your results at the end.</strong>
-                  </p>
+                  </p> */}
 
                   <p className={s.mb25}>
-                    <Link className={s.title} to="/quizzes/listener-quiz">
-                      The Listener Quiz
+                    <Link className={s.title} to="/quizzes/short-quiz">
+                      The Short Quiz
                     </Link>
-                    <br />Help us determine whether the purpose of different
-                    songs is universal or culturally dependent.
+                    <br /> blah blah
                   </p>
 
-                  <p>
+                 { /* <p>
                     <a
                       className={s.title}
                       style={{ marginLeft: '20px', marginRight: '20px' }}

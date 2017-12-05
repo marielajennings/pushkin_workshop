@@ -4,7 +4,7 @@ import React from 'react';
 
 class ForumTrendingQuestions extends React.Component {
   render() {
-    return <div>i'm forum trend</div>;
+    return <div>Trending Questions</div>;
   }
 }
 
