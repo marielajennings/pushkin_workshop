@@ -9,7 +9,7 @@ class PathsPage extends React.Component {
       <div className={s.white}>
         <Row className="display">
           <Col sm={12} lg={12} className={s.textCenter}>
-            <p className={s.heading}>CHOOSE YOUR PATH.</p>
+            <p className={s.heading} style={{ marginTop: '30px' }} >CHOOSE YOUR PATH.</p>
             <p className={s.subText}>
               <b>I want to be a...</b>
             </p>
@@ -20,7 +20,7 @@ class PathsPage extends React.Component {
             <Link href="/projects">
               <Image
                 src={require('../../img/r3.jpg')}
-                style={{ marginTop: '25px' }}
+                style={{ marginTop: '150px' }}
                 responsive
                 className={s.gif}
               />
@@ -36,12 +36,12 @@ class PathsPage extends React.Component {
             <Link to="/quizzes">
               <Image
                 src={require('../../img/p1.jpg')}
-                style={{ marginTop: '25px' }}
+                style={{ marginTop: '180px' }}
                 responsive
                 className={s.gif}
               />
             </Link>
-            <p className={s.subText}>
+            <p className={s.subText} style={{ marginBottom: '20px' }} >
               <b>Participant</b>
             </p>
             <p className={s.subText} style={{ marginBottom: '5px' }}>
