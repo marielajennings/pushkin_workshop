@@ -174,7 +174,7 @@ class ShortQuiz extends React.Component {
     let stims;
     let choices;
     let correct;
-    let user;
+    let user =123;
 
     axiosShortQuiz
       .post('/getAllStimuli', /*{ user: { id: this.props.user.id } } */ )
@@ -219,11 +219,12 @@ class ShortQuiz extends React.Component {
               data['trial_index'] == 1
             ) {
               const toSend = data;
+              console.log(toSend)
               toSend['description'] = 'demographics';
 
               axiosShortQuiz
                 .post('/response', {
-                  user_id: 0,
+                  user_id: user,
                   data_string: toSend
                 })
                 .then(function(res) {})
@@ -236,7 +237,7 @@ class ShortQuiz extends React.Component {
 
                 axiosShortQuiz
                   .post('/response', {
-                    user_id: 0,
+                    user_id: user,
                     data_string: toSend
                   }) 
                   .then(function(res) {})
@@ -252,7 +253,7 @@ class ShortQuiz extends React.Component {
 
                 axiosShortQuiz
                   .post('/stimulusResponse', {
-                    user_id: 0,
+                    user_id: user,
                     stimulus: fullStim,
                     data_string: data
                   })
