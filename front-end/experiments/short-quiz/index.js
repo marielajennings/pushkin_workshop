@@ -22,7 +22,6 @@ class ShortQuiz extends React.Component {
     this.hideLoading = this.hideLoading.bind(this);
     this.onResize = this.onResize.bind(this);
     window.addEventListener('resize', this.onResize.bind(this));
-    // this is an important workaround to clear any generated jspsych stuff that stays in the dom once even if you switch pages (because it's a single page app you're not actually switching pages, and also,  because jspysch generates dom nodes out of the scope of react, there's no automatic garbage collection). if you don't do do the following, there's a chance the experiment could accidentally carry on in the background.
     browserHistory.listen(location => {
       jsPsych.endExperiment();
       window.location.reload();
@@ -31,20 +30,9 @@ class ShortQuiz extends React.Component {
   hideLoading(props) {
     this.setState({ loading: false });
   }
-  //Fixed onResize (doesn't break the quiz anymore)
+
   onResize() {
-    const margin =
-     /* (document.documentElement.clientHeight -
-        document.getElementById('header').scrollHeight -
-        document.getElementById('footer').scrollHeight -
-        15 -
-        document.getElementById('jsPsychTarget').scrollHeight) /
-      2;
-    if (margin > 0) {
-      document.getElementById('jsPsychTarget').style.marginTop = `${margin}px`;
-    } else { */
-      document.getElementById('jsPsychTarget').style.marginTop = '50px';
-    //}
+    const margin = document.getElementById('jsPsychTarget').style.marginTop = '50px';
   }
 
 
@@ -54,8 +42,6 @@ class ShortQuiz extends React.Component {
 
     let arr = [];
     let questions = {};
-    //let count_correct_trials=0;
-    //let correct_percent=0;
 
     for (let i in stims) {
 
@@ -67,10 +53,6 @@ class ShortQuiz extends React.Component {
         options: [choices[i]],
         correct: [correct[i]],
         force_correct: false,
-        on_finish: function(data) {
-          //count_correct_trials=count_correct_trials + data.correct_score;
-          //correct_percent = (count_correct_trials/32)*100; 
-        }
       };
       arr.push(questions);
     }
@@ -80,7 +62,6 @@ class ShortQuiz extends React.Component {
   componentDidMount() {
     /* access to class in inline functions */
     const _this = this;
-
 
     /* jspsych timeline */
 
@@ -213,54 +194,74 @@ class ShortQuiz extends React.Component {
             if (data.correct_score == 1) {
               count_correct_trials = count_correct_trials + data.correct_score;
             }
+         
 
-            
-            if (
-              data['trial_index'] == 1
-            ) {
-              const toSend = data;
-              console.log(toSend)
-              toSend['description'] = 'demographics';
+            if (data['trial_index']==1){
+              console.log('found demographics');
+              var toSend=data;
+              toSend['description']='demographics'
+              console.log(toSend);
 
               axiosShortQuiz
-                .post('/response', {
-                  user_id: user,
-                  data_string: toSend
-                })
-                .then(function(res) {})
-                .catch(function(err) {});
-            } else if (data['responses']) {
-           if (data['responses'].includes('Any comments about the quiz?')) {
-                // post study comments
-                const toSend = data;
-                toSend['description'] = 'comments';
+              .post('/response', {
+               // user_id
+               data_string:toSend
+              })
+              .then(function(res){})
+              .catch(function(err){});
 
-                axiosShortQuiz
-                  .post('/response', {
-                    user_id: user,
-                    data_string: toSend
-                  }) 
-                  .then(function(res) {})
-                  .catch(function(err) {});
-              }} else if (data['responses']) {
-              // responses for trial stimuli
-               {
-                const fullStim = dataArray[dataArray.length - 1]['responses']['Q0'];
-               
+            }
 
-                const toSend = data;
-                toSend['description'] = `responses for stimulus ${fullStim}`;
+            if (data['trial_type']=="survey-multi-choice") {
+              console.log('found stim q')
+              var current_stim = data['responses'].split('"')[3]
+              console.log(current_stim)
+              var toSend = data;
+              toSend['description'] = `responses for stimulus ${current_stim}`
+              console.log(toSend)
 
-                axiosShortQuiz
-                  .post('/stimulusResponse', {
-                    user_id: user,
-                    stimulus: fullStim,
-                    data_string: data
-                  })
-                  .then(function(res) {})
-                  .catch(function(err) {});
-              } 
-            } 
+              axiosShortQuiz
+              .post('/stimulusResponse', {
+               // user_id: ,
+                stimulus: current_stim,
+                data_string: toSend
+              })
+              .then(function(res){})
+              .catch(function(err){});
+            }
+
+            if (data['trial_type']=="survey-text") {
+              console.log('found comments');
+              var toSend = data;
+              toSend['description'] = 'comments about the quiz'
+              console.log(toSend);
+
+              axiosShortQuiz
+              .post('/response',{
+                 // user_id: ,
+                 data_string: toSend
+              })
+              .then(function(res){})
+              .catch(function(err){});
+
+            }
+
+            if (data['trial_type']=="visualize-results") {
+              console.log('found score for participant!Yay')
+              var toSend=data;
+              toSend['description'] = 'score for this user';
+              toSend['score'] = count_correct_trials;
+              console.log(toSend);
+
+              axiosShortQuiz
+              .post('/response',{
+                 // user_id: ,
+                 data_string: toSend
+              })
+              .then(function(res){})
+              .catch(function(err){});
+            }
+            
           }
         });
       })

@@ -75,6 +75,7 @@ export const routes = (
       component={ShortQuiz}
       onEnter={ensureDesktop}
     />
+     
     {CONFIG.auth && (
       <Route
         path="/dashboard"
