@@ -309,6 +309,29 @@ function Worker() {
             console.log(error);
           });
       };
+
+      this[`${quiz}.getAllStimuliOld`] = () => {
+        return db
+          .model('Stimulus')
+          .forge()
+          .query(qb => {
+            qb.offset(0);
+          })
+          .fetchAll()
+          .then(data => {
+            return db.model('User').forge().save().then(user => {
+              const json = data.toJSON();
+              return {
+                stimuli: json,
+                user: user.toJSON()
+              };
+            });
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      };
+
       /**
    * Returns user responses in csv format
    * @method Worker#getResponseCsv

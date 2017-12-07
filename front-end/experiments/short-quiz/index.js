@@ -155,7 +155,7 @@ class ShortQuiz extends React.Component {
     let stims;
     let choices;
     let correct;
-    let user =123;
+    let user;
 
     axiosShortQuiz
       .post('/getAllStimuli', /*{ user: { id: this.props.user.id } } */ )
@@ -165,7 +165,7 @@ class ShortQuiz extends React.Component {
         stims = res.data.stimuli;
         choices = res.data.choices;
         correct = res.data.correct;
-          //user = res.data.user;
+        user = res.data.user;
       })
       .then(() => {
         timeline.push(intro);
@@ -189,7 +189,7 @@ class ShortQuiz extends React.Component {
           display_element: this.refs.jsPsychTarget,
           timeline: timeline,
           on_data_update: function(data) {
-            console.log(data)
+            console.log(data);
             dataArray.push(data);
             if (data.correct_score == 1) {
               count_correct_trials = count_correct_trials + data.correct_score;
@@ -199,12 +199,12 @@ class ShortQuiz extends React.Component {
             if (data['trial_index']==1){
               console.log('found demographics');
               var toSend=data;
-              toSend['description']='demographics'
+              toSend['description']='demographics';
               console.log(toSend);
 
               axiosShortQuiz
               .post('/response', {
-               // user_id
+               user_id:user,
                data_string:toSend
               })
               .then(function(res){})
@@ -213,16 +213,16 @@ class ShortQuiz extends React.Component {
             }
 
             if (data['trial_type']=="survey-multi-choice") {
-              console.log('found stim q')
-              var current_stim = data['responses'].split('"')[3]
-              console.log(current_stim)
+              console.log('found stim q');
+              var current_stim = data['responses'].split('"')[3];
+              console.log(current_stim);
               var toSend = data;
-              toSend['description'] = `responses for stimulus ${current_stim}`
-              console.log(toSend)
+              toSend['description'] = `responses for stimulus ${current_stim}`;
+              console.log(toSend);
 
               axiosShortQuiz
               .post('/stimulusResponse', {
-               // user_id: ,
+                user_id:user,
                 stimulus: current_stim,
                 data_string: toSend
               })
@@ -233,12 +233,12 @@ class ShortQuiz extends React.Component {
             if (data['trial_type']=="survey-text") {
               console.log('found comments');
               var toSend = data;
-              toSend['description'] = 'comments about the quiz'
+              toSend['description'] = 'comments about the quiz';
               console.log(toSend);
 
               axiosShortQuiz
               .post('/response',{
-                 // user_id: ,
+                 user_id:user,
                  data_string: toSend
               })
               .then(function(res){})
@@ -247,7 +247,7 @@ class ShortQuiz extends React.Component {
             }
 
             if (data['trial_type']=="visualize-results") {
-              console.log('found score for participant!Yay')
+              console.log('found score for participant!Yay');
               var toSend=data;
               toSend['description'] = 'score for this user';
               toSend['score'] = count_correct_trials;
@@ -255,7 +255,7 @@ class ShortQuiz extends React.Component {
 
               axiosShortQuiz
               .post('/response',{
-                 // user_id: ,
+                 user_id:user,
                  data_string: toSend
               })
               .then(function(res){})

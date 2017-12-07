@@ -64,16 +64,17 @@ def callback(ch, method, properties, body):
     if rpc.method == 'getAllStimuli':
 
         send_rpc = RPC()
-        send_rpc.method = 'getAllStimuli'
+        send_rpc.method = 'getAllStimuliOld'
         send_rpc.params = []
         routing_key = PREFIX + '_rpc_worker'
 
         results = json.loads(client.call(send_rpc.to_JSON()))
 
         print(results)
+
         stimuli = results['stimuli']
 
-        # user = results['user']['id']
+        user = results['user']['id']
 
         for stim in stimuli:
             stim['num_responses'] = int(stim['num_responses'])
@@ -91,7 +92,7 @@ def callback(ch, method, properties, body):
             stimChoices.append(x_formatted)
             stimCorrect.append(stim['correct'])
 
-        body = json.dumps({'stimuli': finalStims, 'choices':stimChoices, 'correct':stimCorrect})
+        body = json.dumps({'stimuli': finalStims, 'choices':stimChoices, 'correct':stimCorrect, 'user':user})
 
         correlation_id = properties.correlation_id
         reply_to = properties.reply_to
