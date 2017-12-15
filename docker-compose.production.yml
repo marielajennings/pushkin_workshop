@@ -52,7 +52,7 @@ services:
       io.rancher.container.create_agent: 'true'
   message-queue:
     image: 'gameswithwords/message-queue:latest'
-    environment
+    environment:
       CONFD_ARGS: '--interval 5'
       RABBITMQ_CLUSTER_PARTITION_HANDLING: autoheal
       RABBITMQ_NET_TICKTIME: '60'

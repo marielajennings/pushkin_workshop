@@ -18,7 +18,7 @@ const webpack = require('webpack');
 
 // TODO: Update configuration settings
 const config = {
-  title: 'Games With Words',        // Your website title
+  title: 'Pushkin Workshop',        // Your website title
   url: '',          // Your website URL
   project: '',      // Firebase project. See README.md -> How to Deploy
   trackingID: 'UA-3271533-1',                 // Google Analytics Site's ID
