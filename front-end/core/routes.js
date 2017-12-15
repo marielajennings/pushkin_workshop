@@ -9,7 +9,6 @@ import Paths from '../pages/paths/index';
 import Projects from '../pages/projects/index';
 import Quizzes from '../pages/quizzes/index';
 import Archive from '../pages/archive/index';
-import ListenerQuiz from '../experiments/listener-quiz/index';
 import ShortQuiz from '../experiments/short-quiz/index';
 import QuizWrapper from '../components/QuizWrapper/index';
 import Updates from '../pages/updates/index';
@@ -57,19 +56,10 @@ export const routes = (
   >
     <IndexRoute component={Paths} />
    { <Route path="/paths" component={Paths} />}
-    {/*
-  <Route path="/quizzes" component={Quizzes}>
-    <Route path="/quizzes/listener-quiz" component={listener-quiz} />
-  </Route>
-  This method of nesting routes is good if you want all children of a particular route to still cause the relevant menu bar tab to remain in the active css configuration when you progress to a child. I.e. /quizzes and /quizzes/listener-quiz both make the quiz tab in the menu bar display as active. Note how below I'll declare the same routes but not nest them, as I don't want the active class to be inherited.
-  */}
+   
     <Route path="/quizzes" component={Quizzes} />
     {/* note how we're ensuring that non mobile compatabile quizzes don't open on mobile devices or tablets */}
-    <Route
-      path="/quizzes/listener-quiz"
-      component={props => <QuizWrapper config={CONFIG} {...props} />}
-      onEnter={ensureDesktop}
-    />
+    
     <Route
       path="/quizzes/short-quiz"
       component={ShortQuiz}

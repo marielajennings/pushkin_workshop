@@ -33,32 +33,7 @@ class QuizPage extends React.Component {
                   </p> 
                   <hr />
 
-                  {/*<p className={s.mb25} ><Link className={s.title} to="http://archive.gameswithwords.org/WhichEnglish">Which English?</Link><br />Help us map the grammar of English around the world? <strong>See our best guess as to which world English you speak.</strong></p>*/}
-
-                  {/*<p className={s.mb25}>
-                    <a
-                      className={s.title}
-                      href="http://archive.gameswithwords.org/WhichEnglish"
-                    >
-                      Which English
-                    </a>
-                    <br />Help us map the grammar of English around the world?{' '}
-                    <strong>
-                      See our best guess as to which world English you speak.
-                    </strong>
-                  </p> */}
-
-                 {/*} <p className={s.mb25}>
-                    <a
-                      className={s.title}
-                      href="http://archive.gameswithwords.org/VocabQuiz"
-                    >
-                      The Vocab Quiz
-                    </a>
-                    <br />How many words do you know?{' '}
-                    <strong>See your results at the end.</strong>
-                  </p> */}
-
+                  
                   <p className={s.mb25}>
                     <Link className={s.title} to="/quizzes/short-quiz">
                       The Short Quiz
@@ -66,20 +41,7 @@ class QuizPage extends React.Component {
                     <br /> <br />This is essentially the Vocab Quiz, but without all the demographics.
                   </p>
 
-                 { /* <p>
-                    <a
-                      className={s.title}
-                      style={{ marginLeft: '20px', marginRight: '20px' }}
-                      href="/archive"
-                    >
-                      Archives
-                    </a>
-                  </p>
-                  <hr />
-                  <p className={s.sub}>
-                    For results of these projects and announcements of new
-                    projects, click <a href="/updates">here</a>.
-                  </p> */}
+                
                 </div>
               </Col>
             </Row>

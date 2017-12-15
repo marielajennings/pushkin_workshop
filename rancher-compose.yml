@@ -67,3 +67,6 @@ services:
   server:
     scale: 1
     start_on_create: true
+  short-quiz:
+    scale: 1
+    start_on_create: true
