@@ -19,8 +19,8 @@ const webpack = require('webpack');
 // TODO: Update configuration settings
 const config = {
   title: 'Pushkin Workshop',        // Your website title
-  url: '',          // Your website URL
-  project: '',      // Firebase project. See README.md -> How to Deploy
+  url: 'https://d1pp0l0ps9z3pq.cloudfront.net/',          // Your website URL
+  project: 'gameswithwords',      // Firebase project. See README.md -> How to Deploy
   trackingID: 'UA-3271533-1',                 // Google Analytics Site's ID
 };
 
@@ -109,7 +109,7 @@ tasks.set('publish', () => {
     const uploader = client.uploadDir({
       localDir: 'public',
       deleteRemoved: true,
-      s3Params: { Bucket: '' }, // TODO: Update deployment URL
+      s3Params: { Bucket: 'marielaws', ACL: 'public-read' }, // TODO: Update deployment URL
     });
     uploader.on('error', reject);
     uploader.on('end', resolve);

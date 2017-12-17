@@ -13,7 +13,7 @@
   /* Set the fixed height of the footer here */
   height: 100px;
 	
-	position: absolute;
+	position: fixed;
   bottom: 0;
 
 }
@@ -35,19 +35,4 @@
   transform: translateY(-50%);
 }
 
-@media all and (max-width: 768px) {
-  .pad5 {
-    padding: 2.5px !important;
-  }
-  :global .social-icon {
-    width: 40px !important;
-    height: 40px !important;
-  }
-}
-.pad5 {
-  padding: 5px;
-}
 
-.pad7 {
-  padding: 7px;
-}

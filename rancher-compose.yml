@@ -26,7 +26,7 @@ services:
             bind *:80
             mode http
             redirect scheme https code 302 if !{ ssl_fc }
-      default_cert: gameswithwords
+      default_cert: workshop
       port_rules:
       - protocol: http
         selector: dummy

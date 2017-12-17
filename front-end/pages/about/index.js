@@ -44,15 +44,12 @@ class AboutPage extends React.Component {
     if (window.innerWidth < 992) {
       this.setState({
         mobile: true,
-        border: { borderBottom: 'dashed #a9a9a9' }
+        
       });
     } else {
       this.setState({
         mobile: false,
-        border: {
-          borderRight: 'dashed #a9a9a9',
-          minHeight: this.refs.list.offsetHeight + 20
-        }
+        
       });
     }
   }
