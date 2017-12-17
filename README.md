@@ -192,7 +192,7 @@ $ docker-compose -f docker-compose.debug.yml up --build
 
 ## Testing The Front End
 
-Your are now ready to test your experiment locally. Once again, you need to install the dependencies in **front-end** as a global package. Here is how to do it:
+Your are now ready to test your experiment locally. Once again, you need to install the dependencies in **front-end**. Here is how to do it:
 
 * Change the working directory to **front-end** (`cd front-end`) and run the following commands:
 
