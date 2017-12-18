@@ -9,7 +9,7 @@ import Paths from '../pages/paths/index';
 import Projects from '../pages/projects/index';
 import Quizzes from '../pages/quizzes/index';
 import Archive from '../pages/archive/index';
-import ShortQuiz from '../experiments/short-quiz/index';
+
 import QuizWrapper from '../components/QuizWrapper/index';
 import Updates from '../pages/updates/index';
 import Container from '../pages/containers/container';
@@ -60,11 +60,16 @@ export const routes = (
     <Route path="/quizzes" component={Quizzes} />
     {/* note how we're ensuring that non mobile compatabile quizzes don't open on mobile devices or tablets */}
     
-    <Route
-      path="/quizzes/short-quiz"
-      component={ShortQuiz}
-      onEnter={ensureDesktop}
-    />
+
+
+
+
+    {/*Insert your quiz route under this comment!*/}
+
+
+
+
+    
      
     {CONFIG.auth && (
       <Route
