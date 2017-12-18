@@ -10,6 +10,14 @@
 
 <span style="color:red">**Important Note**:</span> Make sure you replace all the relevant names in any commands you execute. Names that need to be replaced will be highlighted and will follow this format: NAME\_OF_FILE.
 
+## Some Terminology
+
+* *Back End*: FUBAR
+* *Front End*: FUBAR
+* *Docker*: FUBAR
+* *Routes*: 
+* FUBAR
+
 ##Getting Started
 
 Needed:
@@ -28,13 +36,13 @@ You will also need to clone the **pushkin-cli tool**, which can be found [here](
 
 Once you have a copy of Pushkin, and you can add the test experiment that you will be using for deployment. A short quiz has been created for this tutorial. There are a number of files for the back end and the front end of the quiz that need to be placed in the appropriate directories. 
 
-All the files for the workshop's test experiment can be found [here](https://github.com/marielajennings/short_quiz). Clone the **short_quiz** repository. Inside, you will find 2 folders: **front-end** and **back-end**, and a few supplementary files. 
+All the files for the workshop's test experiment can be found [here](https://github.com/marielajennings/short_quiz). Clone the **short_quiz** repository. Inside, you will find 2 folders: **front-end** and **back-end**, and a few supplementary files. The back-end files govern how data is stored and processed. The front-end files govern what the subject actually sees. This includes any necessary [jsPsych](http://www.jspsych.org) code, [CSS](https://www.w3schools.com/css/css_intro.asp), etc.
 
-All the files contained in the **back-end** folder can be placed inside a new folder named **short-quiz** inside the **experiments** folder in the **pushkin_workshop** folder. 
+All the files contained in the **back-end** folder can be placed inside a new folder named **short-quiz** inside the **experiments** folder in the **pushkin_workshop** folder. Because of how React works, these files actually need to be distributed across a number of different locations. This gets hard to keep track of, so we keep them in this centralized folder. Later we will use pushkin cli to copy them to the correct locations.
 
 The files in the **front-end** folder will need to be placed inside the **pushkin_workshop** -> **front-end** -> **experiments** folder in a new folder named **short-quiz**.
 
-Additionally, you will need to add the route for the quiz. The file containing all routes (**routes.js**) can be found in **pushkin_workshop** -> **front-end** -> **core**. At the top, add an import statement for the quiz component:
+Additionally, you will need to add the [route](https://scotch.io/tutorials/routing-react-apps-the-complete-guide) for the quiz. The file containing all routes (**routes.js**) can be found in **pushkin_workshop** -> **front-end** -> **core**. At the top, add an import statement for the quiz component:
 
 ```
 import ShortQuiz from '../experiments/short-quiz/index';
@@ -134,7 +142,7 @@ To test whether the **pushkin-cli** installation was successful, run the command
 
 Pushkin sync is a command which ensures that all back end experiment files (workers, seeds, migrations, models) are distributed to their right location for Pushkin to use them. 
 
-<span style="color:red">**Important Note**:</span> You should store all the back end experiment files in the **experiments** folder located inside the **pushkin_workshop** folder. The **experiments** folder should contain a folder for each quiz you would like to deploy, and this folder should contain only the back end files for the quiz. Running `pushkin sync` will copy and move those files to their respective locations to be used by Pushkin.
+<span style="color:red">**Important Note**:</span> You should store all the back end experiment files in the **experiments** folder located inside the **pushkin_workshop** folder. The **experiments** folder should contain a folder for each quiz you would like to deploy, and this folder should contain only the back end files for the quiz. Any edits should be done to these files. Running `pushkin sync` will copy and move those files to their respective locations to be used by Pushkin. **Do not** edit those copies, only the originals in the **experiments** folder.
 
 
 ### Setting Up a Running Docker Container
