@@ -94,24 +94,6 @@ Your test experiment should be ready for deployment!
 
 ##First Steps for Local Deployment 
 
-###Setting Up Databases
-
-When testing locally, you will use a local Postgres database. If you want to have easy access to the database tables to see stimuli and responses, you should set up your Postgres manager to have access to the local Postgres databases.
-
-Open your Postgres manager, select **New** and fill out the following fields to establish a connection to the main database:
-
-**Server host:** localhost  
-**Login:** postgres  
-**Server port:** 5432  
-**Database:** dev
-
-Establish a connection to the transactions database with the following information:
-
-**Server host:** localhost  
-**Login:** postgres  
-**Server port:** 5433  
-**Database:** transactions_dev
-
 ### Pushkin-cli
 The pushkin tool is created to easily scaffold or delete a set of routes, migrations, bookshelf models, seeds and workers for a new quiz.
 To use the **pushkin-cli** tool you will need to install the dependencies in the current working directory as a global package. Here is how to do it:
@@ -158,13 +140,11 @@ Compose is a tool for defining and running multi-container Docker applications. 
 
 Starting Docker containers can take a couple of minutes. If you are not sure whether all the containers are running yet, you can run `docker ps` from your Terminal to check (`docker ps` gives a list of all running containers). 
 
-When all the containers are up and running, run `docker ps` from any directory. You will get a list of running containers with their IDs, STATUS, PORTS, and NAMES. You will need to get a bash shell in the **db-worker** container in order to run your migrations and seed the stimuli database table with the stimuli for the quiz. To do that, copy the container ID of `db-worker`,
+When all the containers are up and running, open a new terminal window and run `docker ps` from any directory. You will get a list of running containers with their IDs, STATUS, PORTS, and NAMES. You will need to get a bash shell in the **db-worker** container in order to run your migrations and seed the stimuli database table with the stimuli for the quiz. To do that, copy the container ID of `db-worker`,
 
 
 
 ![logo](https://github.com/marielajennings/Tutorial-images/raw/master/Screen%20Shot%202017-08-31%20at%2012.27.35%20PM.png)
-
-
 
 
 
@@ -174,16 +154,72 @@ and run the following command:
 $ docker exec -it CONTAINER_ID bash
 ```
 
-
 Followed by:
 
 ```
 $ npm run migrations
 ```
 
-At this point, you have created your database tables. You can check your Postgres manager to make sure your migrations were successful.
+If migrations run successfully, you should see someting along the lines of:
 
-The stimuli for the quiz have been formatted and saved as a .csv file in **db-worker** -> **seeds** -> **short-quiz**. To seed the stimuli table in the database, you can run the following command in the db-worker container bash shell:
+
+```
+npm info lifecycle @1.0.0~postmigrations: @1.0.0
+npm info ok  
+```
+
+or a similar message indicating that there were nto any errors.
+   
+---
+<span style="color:red">**Important Note**</span>: If you have used Pushkin previously on your computer, you may have left-over Docker images, which will cause the following error:
+
+```
+Knex:warning - migrations failed with error: alter table "listener-quiz_responses" add constraint "listener_quiz_responses_user_id_foreign" foreign key ("user_id") references "listener-quiz_users" ("id") - relation "listener-quiz_users" does not exist
+error: relation "listener-quiz_users" does not exist
+```
+
+In that case, you should exit the docker bash (`$ exit`), and close down docker (CNTRL-c) in the terminal window that you ran `docker-compose` in. Then, in that same window, run 
+
+```
+docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q) && docker rmi $(docker images -q)
+```
+
+Then, repeat the earlier steps starting with `docker-compose`.
+
+---
+
+At this point, you have created your database tables. You can check your Postgres manager to make sure your migrations were successful, as described in the next subsection.
+
+###Setting Up Databases
+
+When testing locally, you will use a local Postgres database. If you want to have easy access to the database tables to see stimuli and responses, you should set up your Postgres manager to have access to the local Postgres databases.
+
+Open your Postgres manager, select **New** and fill out the following fields to establish a connection to the main database:
+
+**Server host:** localhost  
+**Login:** postgres  
+**Server port:** 5432  
+**Database:** dev
+
+Establish a connection to the transactions database with the following information:
+
+**Server host:** localhost  
+**Login:** postgres  
+**Server port:** 5433  
+**Database:** transactions-dev
+
+Now, assuming docker is still running, you should be able to connect to both of those databases. If you use **SQLPro for Postgress** (which we recommend), it will look something like this:
+
+![logo](docs/images/databases_empty.png)
+
+Note that `short-quiz` uses four tables:
+
+* `short-quiz_responses`: a list of all subject responses for this quiz.
+* `short-quiz_stimuli`: a list of all stimuli for this quiz.
+* `short-quiz_stimulusResponses`: FUBAR
+* `short-quiz_users`: a list of all subjects
+
+For now, these are empty. Let's fill in the list of stimuli. The stimuli for the quiz have been formatted and saved as a .csv file in **db-worker** -> **seeds** -> **short-quiz**. To seed the stimuli table in the database, you can run the following command in the db-worker container bash shell:
 
 `$ node seeder.js NAME_OF_QUIZ` <span style="color:red">Insert the name of the quiz!</span>
 
@@ -191,11 +227,21 @@ A series of questions will appear; the answers to all of them should be **Yes**.
 
 ![logo](https://github.com/marielajennings/Tutorial-images/raw/master/Screen%20Shot%202017-08-31%20at%2012.43.22%20PM.png)
 
+If this runs correctly, you should now have stimuli in the `short-quiz_stimuli` table.
+
+
+![logo](docs/images/databases_seeded.png)
+
+
 <span style="color:red">**Hint**:</span> Every time you make changes to files you will need to rebuild the Docker containers, since the changes do not get updated automatically. To do this, run the following command: Every time you make changes to files you will need to rebuild the Docker containers, since the changes do not get updated automatically. To do this, run the following command:
 
 ```
 $ docker-compose -f docker-compose.debug.yml up --build
 ```
+
+#### Transactions Database
+
+We have two databases. One contains all the information for our various quizzes, as discussed above. The other is the transactions database, which records every modification made to every database. This provides real-time version control. 
 
 
 ## Testing The Front End
