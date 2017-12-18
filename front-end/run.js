@@ -20,7 +20,7 @@ const webpack = require('webpack');
 const config = {
   title: 'Pushkin Workshop',        // Your website title
   url: 'https://d1pp0l0ps9z3pq.cloudfront.net/',          // Your website URL
-  project: 'gameswithwords',      // Firebase project. See README.md -> How to Deploy
+  project: '',      // Firebase project. See README.md -> How to Deploy
   trackingID: 'UA-3271533-1',                 // Google Analytics Site's ID
 };
 
