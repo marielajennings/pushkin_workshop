@@ -12,11 +12,10 @@
 
 ## Some Terminology
 
-* *Back End*: FUBAR
-* *Front End*: FUBAR
-* *Docker*: FUBAR
-* *Routes*: 
-* FUBAR
+* *Back End*: everything that happens on the server (on site, or in the cloud) and the databases
+* *Front End*: the user interface or the presentation layer of a website
+* *Docker*: a platform to run and distribute applications in the form of lightweight images that spawn containers
+* *Routes*: connect a URL with the web page it refers to
 
 ##Getting Started
 
@@ -69,7 +68,7 @@ You will need to add your new experiment on the **Quizzes** page. Go to **pushki
                     <br /> <br />This is essentially the Vocab Quiz, but without all the demographics.
                   </p>
 ```
-Finally, you will need to add your experiment to **docker-compose.debug.yml** (located in the **pushkin_workshop** folder). Add the quiz as the last portion of the file in the following format:
+Finally, you will need to add your experiment to **docker-compose.debug.yml** (located in the **pushkin_workshop** folder). Add the quiz as the last portion of the file in the following format (<span style="color:red">**Important Note**:</span> Indentation matters! Make sure the name of the quiz lines up with the names of the rest of the services in **docker-compose.debug.yml**) :
 
 ```
 short-quiz:
