@@ -416,12 +416,12 @@ Go back to **AWS** -> **Services** -> **RDS** -> **Launch DB Instance**
 
 	**DB instance class**: db.t2.small        
 	**Multi-AZ deployment**: No   
-	**DB instance identifier**: YOUR\_IDENTIFIER  <span style="color:red">Insert your identifier!</span>     
-	**Master Username**: YOUR\_USERNAME (will be used to log in to the database)  <span style="color:red">Insert your username!</span>   
-	**Master Password**: YOUR_PASSWORD   <span style="color:red">Insert your password!</span>  
+	**DB instance identifier**: YOUR\_IDENTIFIER  <span style="color:red">choose a unique ID for this DB</span>     
+	**Master Username**: YOUR\_USERNAME (will be used to log in to the database)  <span style="color:red">choose a username to use with the DB</span>   
+	**Master Password**: YOUR_PASSWORD   <span style="color:red">Choose a password!</span>  
 	**VPC Security groups**: Select existing VPC security groups: DATABASE\_SECURITY\_GROUP     
-	**DB Cluster Identifier**: YOUR\_IDENTIFIER <span style="color:red">Insert your identifier!</span>  
-	**Database name**: YOUR\_DATABASE\_NAME <span style="color:red">Insert your database name!</span>   
+	**DB Cluster Identifier**: YOUR\_IDENTIFIER <span style="color:red">(from earlier)</span>  
+	**Database name**: YOUR\_DATABASE\_NAME <span style="color:red">Choose a name for this DB</span>   
 	**Database port**: 3306       
 	**Backup retention period**: 7 days   
 	**Maintenance window**: Select window: SELECT\_A\_WINDOW    
