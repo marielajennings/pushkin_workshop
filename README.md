@@ -492,7 +492,7 @@ and change the following:
 Rancher is a container manager that gives you the tools to easily manager your Docker containers in production. AWS offers the option to create a Rancher EC2 instance. We will use an instance like that to deploy Pushkin.
 
 First, you will need to create the instance.
-Go back to your **AWS account** ->**EC2**-> **Launch Instance** -> **AWS Marketplace** -> **Search** -> **Rancher** and select the first option.
+Go back to your **AWS account** ->**EC2**-> **Launch Instance** -> **AWS Marketplace** -> **Search** -> **Rancher** and select 'Rancher on RancherOS'.
 
 * Instance configuration:    
   **Type**: t2.medium  
