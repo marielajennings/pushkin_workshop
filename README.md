@@ -420,7 +420,7 @@ Go back to **AWS** -> **Services** -> **RDS** -> **Launch DB Instance**
 	**Master Username**: YOUR\_USERNAME (will be used to log in to the database)  <span style="color:red">choose a username to use with the DB</span>   
 	**Master Password**: YOUR_PASSWORD   <span style="color:red">Choose a password!</span>  
 	**VPC Security groups**: Select existing VPC security groups: DATABASE\_SECURITY\_GROUP     
-	**DB Cluster Identifier**: YOUR\_IDENTIFIER <span style="color:red">(from earlier)</span>  
+	**DB Cluster Identifier**: YOUR\_CLUSTER\_IDENTIFIER <span style="color:red">(choose a unique ID)</span>  
 	**Database name**: YOUR\_DATABASE\_NAME <span style="color:red">Choose a name for this DB</span>   
 	**Database port**: 3306       
 	**Backup retention period**: 7 days   
