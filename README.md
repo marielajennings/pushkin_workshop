@@ -392,13 +392,13 @@ The purpose of the script is to copy relevant files to the server folder of your
 Your databases and Rancher instance will need special security groups with the right permissions. You can create them in your **AWS** account. Go to **EC2** -> **Security Groups** -> **Create Security Group**
 
 1. Database security group (DATABASE\_SECURITY\_GROUP)     
-**Rules**:     
+**INBOUND Rules**:     
  MySQL/Aurora - TCP - 3306 - Anywhere     
  PostsgreSQL - TCP - 5432 - Anywhere     
  
 2. Rancher security group (RANCHER\_SECURITY\_GROUP) 
   
-**Rules**:       
+**INBOUND Rules**:       
 HTTP - TCP - 80 - Anywhere    
 HTTPS - TCP - 443 - Anywhere   
 Custom TCP - TCP - 8080 - Anywhere    
